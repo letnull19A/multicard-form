@@ -20,7 +20,7 @@ export default function Card(props) {
                         <span>до</span>
                         <input
                             onChange={(e) => handleInput(e, id, index)}
-                            defaultValue={data.pairs[index]['end']}
+                            defaultValue={pair['end']}
                             name='end'
                             className='card__row__input'
                             type="text" />

@@ -30,9 +30,7 @@ function App() {
     const handleInput = (e, id, pairId) => {
         const { name, value } = e.target;
 
-        const newValues = list;
-
-        console.log(name, value);
+        const newValues = list
 
         if (name === 'start')
             newValues[id].pairs[pairId].start = value;
@@ -40,7 +38,7 @@ function App() {
         if (name === 'end')
             newValues[id].pairs[pairId].end = value;
 
-        setList(newValues);
+        setList([...newValues]);
     }
 
     const handleAdd = () => {
@@ -65,7 +63,15 @@ function App() {
     }
 
     const handleRemove = (id) => {
-        setList(prevState => prevState.filter(e => e.id !== id));
+
+        const newValues = []
+
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].id !== id)
+                newValues.push(list[i])
+        }
+
+        setList([...newValues]);
     }
 
     return (
@@ -73,7 +79,7 @@ function App() {
             <div className="list">
                 {list.map((item, index) => (
                     <Card
-                        key={index}
+                        key={uuidv4()}
                         id={index}
                         data={item}
                         handleRemove={handleRemove}
