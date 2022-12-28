@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 import { v4 as uuidv4 } from "uuid";
+import { TIME_POINT, TIME_UNIT } from "./Enums";
 
 function App() {
   const [list, setList] = useState([]);
@@ -27,34 +28,27 @@ function App() {
   }, []);
 
   const handleSelect = (e, card, row, customName) => {
-    console.log(e.target.value, e.target.name, card, row, customName);
-
-    const { name, value } = e.target
-
     const newList = list;
 
-    if (customName === 'start' && name === 'hour') {
-        const startTime = newList[card].pairs[row].start;
-        newList[card].pairs[row].start = value + startTime.substring(2, 5);
+    if (customName === TIME_POINT.START) {
+        newList[card].pairs[row].start = changeTime(newList[card].pairs[row].start, e);
     }
 
-    if (customName === 'start' && name === 'minutes') {
-        const startTime = newList[card].pairs[row].start;
-        newList[card].pairs[row].start = startTime.substring(0, 3) + value;
+    if (customName === TIME_POINT.END) {
+        newList[card].pairs[row].end = changeTime(newList[card].pairs[row].end, e);
     }
 
-    if (customName === 'end' && name === 'hour') {
-        const startTime = newList[card].pairs[row].end;
-        newList[card].pairs[row].end = value + startTime.substring(2, 5);
-    }
+    setList([...newList]);
+  };
 
-    if (customName === 'end' && name === 'minutes') {
-        const startTime = newList[card].pairs[row].end;
-        newList[card].pairs[row].end = startTime.substring(0, 3) + value;
-    }
+  const changeTime = (timePoint, e) => {
+    const origin = timePoint;
+    const { name, value } = e.target;
 
-    setList([...newList])
-
+    return (timePoint =
+      name === TIME_UNIT.HOUR
+        ? value + origin.substring(2, 5)
+        : origin.substring(0, 3) + value);
   };
 
   const handleAdd = () => {

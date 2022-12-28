@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import TimeSelect from "./TimeSelect";
+import React, { useEffect } from "react"
+import TimeSelect from "./TimeSelect"
+import { TIME_POINT } from "./Enums"
 
 export default function Card(props) {
   const { id, data, handleSelect, handleRemove } = props;
@@ -13,7 +14,7 @@ export default function Card(props) {
             <span>{index + 1}. от</span>
             <TimeSelect
               data={pair.start}
-              name="start"
+              name={TIME_POINT.START}
               card={id}
               row={index}
               handleSelect={handleSelect}
@@ -21,7 +22,7 @@ export default function Card(props) {
             <span>до</span>
             <TimeSelect
               data={pair.end}
-              name="end"
+              name={TIME_POINT.END}
               card={id}
               row={index}
               handleSelect={handleSelect}

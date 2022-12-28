@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+import { TIME_UNIT } from "./Enums"
 
 export default function TimeSelect(props) {
   const { handleSelect, card, row, name, data } = props;
@@ -39,7 +40,6 @@ export default function TimeSelect(props) {
   const [minute, setMinute] = useState();
 
   useEffect(() => {
-    console.log(data)
     setHour(data.substring(0, 2))
     setMinute(data.substring(3, 5))
   }, [data]);
@@ -47,7 +47,7 @@ export default function TimeSelect(props) {
   return (
     <div className="select">
       <select
-        name="hour"
+        name={TIME_UNIT.HOUR}
         onChange={(e) => handleSelect(e, card, row, name)}
         className="select__option"
         value={hour}
@@ -60,7 +60,7 @@ export default function TimeSelect(props) {
       </select>
       <span>:</span>
       <select
-        name="minutes"
+        name={TIME_UNIT.MINUTE}
         onChange={(e) => handleSelect(e, card, row, name)}
         className="select__option"
         value={minute}
